@@ -94,8 +94,8 @@ export function Navbar({ links }: HeaderSearchProps) {
           <Group spacing={20} className={classes.links}>
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
-            <Link href="/about">Contact us </Link>
-            <Link href="/about">News</Link>
+            <Link href="/contact_us">Contact us </Link>
+            <Link href="/news">News</Link>
           </Group>
           <Burger
             opened={opened}
