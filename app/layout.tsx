@@ -3,7 +3,7 @@ import { MantineProvider } from "@mantine/core"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import Link from "next/link"
-import Navbar from "./component/Navbar"
+import { Navbar } from "./component/Navbar"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html>
       <MantineProvider>
-        <body className={inter.className}>
+        <body className={inter.className } >
         <Navbar/>
           {children}
         </body>

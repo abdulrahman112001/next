@@ -1,3 +1,4 @@
+"use client"
 import {
   createStyles,
   Header,
@@ -29,6 +30,9 @@ import {
   IconCoin,
   IconChevronDown,
 } from "@tabler/icons-react"
+import Image from "next/image"
+import Logo from "./atoms/Logo"
+import Link from "next/link"
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -132,7 +136,7 @@ const mockdata = [
   },
 ]
 
-export function HeaderMegaMenu() {
+export function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false)
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false)
@@ -158,19 +162,25 @@ export function HeaderMegaMenu() {
 
   return (
     <Box pb={120}>
-      <Header height={60} px="md">
-        <Group position="apart" sx={{ height: "100%" }}>
-          <MantineLogo size={30} />
-
+      <Header height={60} px="md" className="flex justify-between">
+        <Group sx={{ height: "100%" }}>
+          {/* <Image src="../../public/assets/main-logo.svg" alt="logo" width={30} height={30}/> */}
+          <Logo />
           <Group
             sx={{ height: "100%" }}
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <a href="#" className={classes.link}>
-              Home
-            </a>
-            <HoverCard
+            <Link href="#" className={classes.link}>
+              Search
+            </Link>
+            <Link href="#" className={classes.link}>
+              For Business
+            </Link>
+            <Link href="#" className={classes.link}>
+              About Us
+            </Link>
+            {/* <HoverCard
               width={600}
               position="bottom"
               radius="md"
@@ -223,18 +233,19 @@ export function HeaderMegaMenu() {
                   </Group>
                 </div>
               </HoverCard.Dropdown>
-            </HoverCard>
-            <a href="#" className={classes.link}>
+            </HoverCard> */}
+            {/* <a href="#" className={classes.link}>
               Learn
             </a>
             <a href="#" className={classes.link}>
               Academy
-            </a>
+            </a> */}
           </Group>
-
+        </Group>
+        <Group>
           <Group className={classes.hiddenMobile}>
             <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button className="bg-red-500">Sign up</Button>
           </Group>
 
           <Burger
@@ -285,8 +296,8 @@ export function HeaderMegaMenu() {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
             <Button>Sign up</Button>
+            <Button variant="default">Log in</Button>
           </Group>
         </ScrollArea>
       </Drawer>
