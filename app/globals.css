@@ -2,26 +2,136 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.headerSection {
+  background-color: var(--background);
+  margin: 0 auto;
+  position: relative;
+  z-index: 100;
+  padding: 0 2rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.headerSection .main-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--background);
+  height: 3rem;
+  overflow: hidden;
+  width: auto;
+  justify-content: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.headerSection .main-header .logo {
+  margin: 0 1rem;
+  width: auto;
+  flex: 0 1 auto;
+  z-index: 1000;
+}
+
+.headerSection .main-header .logo img[src$="svg"] {
+  width: 100%;
+  height: 100%;
+  max-height: 40px;
+  max-width: 250px;
+  vertical-align: top;
+}
+
+.headerSection .main-header .menu-area {
+  flex-wrap: wrap;
+  display: flex;
+  flex-shrink: 5;
+  align-items: stretch;
+  max-height: 3rem;
+  overflow: hidden;
+}
+
+.headerSection .main-header .menu-area .menu-btn {
+  display: flex;
+  position: relative;
+  align-items: center;
+  color: var(--text-light);
+  padding: 0 16px;
+  height: 3rem;
+}
+
+.headerSection .main-header .menu-area .menu-btn:hover {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.headerSection .main-header .widgets-area {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.headerSection .main-header .widgets-area .clickOutside:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.headerSection .main-header .widgets-area .wrapper-control .widgets-control {
+  align-items: center;
+  color: var(--text-light);
+  display: flex;
+  cursor: pointer;
+  height: 48px;
+  user-select: none;
+}
+
+.headerSection .main-header .widgets-area .wrapper-control .widgets-control:hover {
+  color: var(--text-hover);
+  font-weight: 600;
+}
+
+.headerSection .main-header .widgets-area .wrapper-control .widgets-control .widget-icon {
+  margin: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerSection .main-header .widgets-area .wrapper-control .widgets-control .widget-value {
+  margin-left: auto;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.headerSection .main-header .widgets-area .wrapper-control .widgets-control .widget-arrow {
+  align-items: center;
+  display: flex;
+  height: 24px;
+  width: 24;
+  justify-content: center;
+}
+
+@media (mobile) {
+  .headerSection {
+    padding: 0;
+  }
+  .headerSection .menu-area {
+    display: none !important;
+  }
+  .headerSection .clickOutside {
+    margin-right: 0.4rem !important;
+  }
+  .headerSection .widget-arrow {
+    display: none !important;
+  }
+  .headerSection .widget-value {
+    display: none;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.navmenu-popup .wrapperwrapper-inner {
+  position: absolute;
+  border-radius: 4px;
+  box-shadow: 0 8px 40px 0 var(--shadow);
+  z-index: 555;
+}
+
+.navmenu-popup .wrapperwrapper-inner::before {
+  content: "";
+  height: 20px;
+ 
 }

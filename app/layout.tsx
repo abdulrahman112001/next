@@ -1,9 +1,9 @@
 "use client"
 import { MantineProvider } from "@mantine/core"
-import { Navbar } from "./component/Navbar"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import Link from "next/link"
+import Navbar from "./component/Navbar"
 
 const inter = Inter({ subsets: ["latin"] })
 
