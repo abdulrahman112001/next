@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 function About() {
@@ -7,7 +8,9 @@ function About() {
   }
 
   return (
-    <div>About</div>
+    <div>
+      |<Link href="/someone"> some  one </Link>
+    </div>
   )
 }
 
