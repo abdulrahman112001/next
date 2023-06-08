@@ -1,38 +1,49 @@
-"use client"
+"use client";
 import {
-  createStyles,
-  Header,
-  HoverCard,
-  Group,
-  Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
-  Anchor,
-  Divider,
-  Center,
   Box,
   Burger,
-  Drawer,
+  Button,
+  Center,
+  Checkbox,
   Collapse,
+  Divider,
+  Drawer,
+  Group,
+  Header,
+  Modal,
   ScrollArea,
+  Text,
+  TextInput,
+  ThemeIcon,
+  UnstyledButton,
+  PasswordInput,
+  createStyles,
   rem,
-} from "@mantine/core"
-import { MantineLogo } from "@mantine/ds"
-import { useDisclosure } from "@mantine/hooks"
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+
+import { useDisclosure } from "@mantine/hooks";
+// import { FcGoogle } from 'react-icons/fc';
+
 import {
-  IconNotification,
-  IconCode,
   IconBook,
   IconChartPie3,
-  IconFingerprint,
-  IconCoin,
   IconChevronDown,
-} from "@tabler/icons-react"
-import Image from "next/image"
-import Logo from "./atoms/Logo"
-import Link from "next/link"
+  IconCode,
+  IconCoin,
+  IconFingerprint,
+  IconMail,
+  IconNotification,
+} from "@tabler/icons-react";
+import Link from "next/link";
+import { Settings } from "../setting";
+import Logo from "./atoms/Logo";
+import { t } from "i18next";
+import GoogleIcons from "./icons/GoogleIcons";
+import { IconLock } from "@tabler/icons-react";
+import Image from "next/image";
+import { MantineLogo } from "@mantine/ds";
+import AsideBar from "./AsideBar";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -101,7 +112,7 @@ const useStyles = createStyles((theme) => ({
       display: "none",
     },
   },
-}))
+}));
 
 const mockdata = [
   {
@@ -134,14 +145,21 @@ const mockdata = [
     title: "Notifications",
     description: "Combusken battles with the intensely hot flames it spews",
   },
-]
+];
 
 export function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false)
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false)
-  const { classes, theme } = useStyles()
+    useDisclosure(false);
 
+    
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  const { classes, theme } = useStyles();
+
+  const [openedBar, { toggle }] = useDisclosure(false);
+
+  
   const links = mockdata.map((item) => (
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group noWrap align="flex-start">
@@ -158,13 +176,30 @@ export function Navbar() {
         </div>
       </Group>
     </UnstyledButton>
-  ))
+  ));
+
+  const form = useForm({
+    initialValues: {
+      email: "",
+      termsOfService: false,
+    },
+
+    validate: {
+      email: (value: string) =>
+        /^\S+@\S+$/.test(value) ? null : "Invalid email",
+    },
+  });
 
   return (
     <Box pb={120}>
       <Header height={60} px="md" className="flex justify-between">
+
+
+
+        
         <Group sx={{ height: "100%" }}>
-          {/* <Image src="../../public/assets/main-logo.svg" alt="logo" width={30} height={30}/> */}
+        <Burger opened={openedBar} onClick={toggle} size="sm" />
+
           <Logo />
           <Group
             sx={{ height: "100%" }}
@@ -177,76 +212,110 @@ export function Navbar() {
             <Link href="#" className={classes.link}>
               For Business
             </Link>
-            <Link href="#" className={classes.link}>
+            <Link href="/about" className={classes.link}>
               About Us
             </Link>
-            {/* <HoverCard
-              width={600}
-              position="bottom"
-              radius="md"
-              shadow="md"
-              withinPortal
-            >
-              <HoverCard.Target>
-                <a href="#" className={classes.link}>
-                  <Center inline>
-                    <Box component="span" mr={5}>
-                      Features
-                    </Box>
-                    <IconChevronDown
-                      size={16}
-                      color={theme.fn.primaryColor()}
-                    />
-                  </Center>
-                </a>
-              </HoverCard.Target>
-
-              <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
-                <Group position="apart" px="md">
-                  <Text fw={500}>Features</Text>
-                  <Anchor href="#" fz="xs">
-                    View all
-                  </Anchor>
-                </Group>
-
-                <Divider
-                  my="sm"
-                  mx="-md"
-                  color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-                />
-
-                <SimpleGrid cols={2} spacing={0}>
-                  {links}
-                </SimpleGrid>
-
-                <div className={classes.dropdownFooter}>
-                  <Group position="apart">
-                    <div>
-                      <Text fw={500} fz="sm">
-                        Get started
-                      </Text>
-                      <Text size="xs" color="dimmed">
-                        Their food sources have decreased, and their numbers
-                      </Text>
-                    </div>
-                    <Button variant="default">Get started</Button>
-                  </Group>
-                </div>
-              </HoverCard.Dropdown>
-            </HoverCard> */}
-            {/* <a href="#" className={classes.link}>
-              Learn
-            </a>
-            <a href="#" className={classes.link}>
-              Academy
-            </a> */}
           </Group>
         </Group>
         <Group>
           <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button className="bg-red-500">Sign up</Button>
+            <Settings />
+
+            {/* <Button variant="default">Log in</Button> */}
+            <Button onClick={open} className="bg-red-500">
+              Sign in
+            </Button>
           </Group>
+          <Modal
+            opened={opened}
+            onClose={close}
+            title={`${t("Sign in")}`}
+            size={"lg"}
+          >
+            <div className="grid grid-cols-2">
+              <div className="col-span-1 p-2">
+                <div className="p-1 border rounded ">
+                  <a href="" className="flex items-center">
+                    <GoogleIcons />
+                    <p className="mx-3 text-sm">{t("sign in with google")}</p>
+                  </a>
+                </div>
+                <div className="p-1 mt-4 border rounded ">
+                  <a href="" className="flex items-center">
+                    <GoogleIcons />
+                    <p className="mx-3 text-sm">{t("sign in with google")}</p>
+                  </a>
+                </div>
+                <div className="p-1 mt-4 border rounded ">
+                  <a href="" className="flex items-center">
+                    <GoogleIcons />
+                    <p className="mx-3 text-sm">{t("sign in with google")}</p>
+                  </a>
+                </div>
+                <p className="m-auto text-xs text-center mt-7">
+                  or sign in with email
+                </p>
+
+                <form
+                  className="mt-5"
+                  onSubmit={form.onSubmit((values: any) => console.log(values))}
+                >
+                  <TextInput
+                    withAsterisk
+                    label="Email Address"
+                    placeholder="your@email.com"
+                    {...form.getInputProps("email")}
+                    icon={<IconMail size="1rem" />}
+                  />
+
+                  <PasswordInput
+                    placeholder="Password"
+                    label="Password"
+                    icon={<IconLock size="1rem" />}
+                    withAsterisk
+                    className="mt-4"
+                  />
+
+                  <Checkbox
+                    mt="md"
+                    label="I agree to sell my privacy"
+                    {...form.getInputProps("termsOfService", {
+                      type: "checkbox",
+                    })}
+                  />
+
+                  <Group position="center" mt="md">
+                    <Button type="submit" className=" bg-blue-600 w-[100%]">
+                      Sign in
+                    </Button>
+
+                    <Button className="text-black hover:bg-inherit">
+                      Forgot your password?
+                    </Button>
+                    <p className="inline-block text-xs ">
+                      Don't have an account?
+                      <Button
+                        onClick={open}
+                        className="text-xs text-blue-600 text- hover:bg-inherit"
+                      >
+                        Create Account
+                      </Button>
+                    </p>
+                  </Group>
+                </form>
+              </div>
+
+              <div className="col-span-1 p-2">
+                <Image
+                  src="https://www.priceline.com/global-web-components/public/images/SignIn.svg"
+                  width="100"
+                  height="100"
+                  alt="partner"
+                  className="!w-[100%]"
+                />
+              </div>
+            </div>
+          </Modal>
 
           <Burger
             opened={drawerOpened}
@@ -296,11 +365,11 @@ export function Navbar() {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button>Sign up</Button>
-            <Button variant="default">Log in</Button>
+            <Button>Sign in</Button>
+            {/* <Button variant="default">Log in</Button> */}
           </Group>
         </ScrollArea>
       </Drawer>
     </Box>
-  )
+  );
 }
