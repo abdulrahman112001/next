@@ -2,7 +2,7 @@
 import { MantineProvider } from "@mantine/core"
 import "./globals.css"
 import { Inter } from "next/font/google"
-import { Navbar } from "./component/Navbar"
+import { Navbar } from "./component/template/Navbar"
 import Home from "./page"
 
 const inter = Inter({ subsets: ["latin"] })

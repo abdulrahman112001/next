@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mantine-tou914{
+    background-color: transparent;
+    padding: 15px !important;
+    border-right: 0;
+    border-radius: 0.5rem;
+  }
+.mantine-tou914[data-active]{
+    background-color: transparent;
+    padding: 15px !important;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0.0625rem 0.1875rem, rgba(0, 0, 0, 0.05) 0px 1.25rem 1.5625rem -0.3125rem, rgba(0, 0, 0, 0.04) 0px 0.625rem 0.625rem -0.3125rem;
+    border: 1px solid #cdcccc !important;
+    border-right: 0;
+    border-radius: 0.5rem;
+  }

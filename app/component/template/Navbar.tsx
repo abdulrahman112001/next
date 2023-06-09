@@ -36,14 +36,14 @@ import {
   IconNotification,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { Settings } from "../setting";
-import Logo from "./atoms/Logo";
+import { Settings } from "../../setting";
+import Logo from "../atoms/Logo";
 import { t } from "i18next";
-import GoogleIcons from "./icons/GoogleIcons";
+import GoogleIcons from "../icons/GoogleIcons";
 import { IconLock } from "@tabler/icons-react";
 import Image from "next/image";
 import { MantineLogo } from "@mantine/ds";
-import AsideBar from "./AsideBar";
+import AsideBar from "../AsideBar";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -151,7 +151,6 @@ export function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
 
-    
   const [opened, { open, close }] = useDisclosure(false);
 
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -159,7 +158,6 @@ export function Navbar() {
 
   const [openedBar, { toggle }] = useDisclosure(false);
 
-  
   const links = mockdata.map((item) => (
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group noWrap align="flex-start">
@@ -191,14 +189,10 @@ export function Navbar() {
   });
 
   return (
-    <Box pb={120}>
+    <Box pb={50}>
       <Header height={60} px="md" className="flex justify-between">
-
-
-
-        
         <Group sx={{ height: "100%" }}>
-        <Burger opened={openedBar} onClick={toggle} size="sm" />
+          <Burger opened={openedBar} onClick={toggle} size="sm" />
 
           <Logo />
           <Group
@@ -222,7 +216,7 @@ export function Navbar() {
             <Settings />
 
             {/* <Button variant="default">Log in</Button> */}
-            <Button onClick={open} className="bg-red-500">
+            <Button onClick={open} className="bg-bg_banfsgy">
               Sign in
             </Button>
           </Group>
